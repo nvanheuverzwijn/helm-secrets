@@ -32,10 +32,6 @@ get_sha_256 () {
     echo $res | cut -d ' ' -f 1
 }
 
-# Install the helm wrapper in the same dir as helm itself. That's not
-# guaranteed to work, but it's better than hard-coding it.
-HELM_WRAPPER="${HELM_DIR}/helm-wrapper"
-
 if hash sops 2>/dev/null; then
     echo "sops is already installed:"
     sops --version

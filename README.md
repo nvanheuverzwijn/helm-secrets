@@ -15,7 +15,7 @@ We store secrets and values in ```helm_vars``` dir structure just like in this r
 Working in teams on multiple projects/regions/envs and multiple secrets files at once.
 We have Makefile in our Helm charts repo to simplify install helm-secrets plugin with helm and other stuff we use. Same Makefile used to rebuild all helm charts with dependencies and some other everyday helpers.
 Encrypting, Decrypting, Editing secrets on local clones, making #PR's and storing this in our helm charts repo encrypted with PGP, AWS KMS and GCP KMS.
-Deploying using helm-wrapper from local or from CI with same charts and secrets/values from GIT repository.
+Deploying using `helm secrets install` from local or from CI with same charts and secrets/values from GIT repository.
 
 # Main features
 
@@ -78,12 +78,6 @@ For example:
 curl -L $TARBALL_URL | tar -C $(helm home)/plugins -xzv
 ```
 
-#### Helm-wrapper configuration
-By default helm-wrapper is not configured to encrypt/decrypt secrets.yaml in charts templates. They are templates and values from specific secrets/value files should e used in this templates as reference from helm itself.
-Set you own options as ENV variables if you like overwrite default kms enabled and decrypt charts disabled.
-```
-DECRYPT_CHARTS=false helm-wrapper ....
-```
 ## Usage and examples
 
 ```
@@ -332,7 +326,7 @@ You can see that we use a global secrets file and a specific secrets file for th
 
 Even when helm failed then decrypted files are cleaned
 ```
-AWS_PROFILE=sandbox helm-wrapper upgrade \
+AWS_PROFILE=sandbox helm secrets upgrade \
   helloworld \
   stable/java-app \
   --install \
